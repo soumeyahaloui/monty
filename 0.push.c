@@ -1,50 +1,42 @@
 #include "monty.h"
 
 /**
- * push - Pushes a value to the stack.
- * @stack: Double pointer to the head of the stack.
- * @line_number: Line number of the instruction in the file being processed.
- */
-void push(stack_t **stack, unsigned int line_number)
-{
-	char *arg = strtok(NULL, DELIMS);
-
-	if (!arg || !isint(arg))
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
-	stack_t *new_node = malloc(sizeof(stack_t));
-
-	if (!new_node)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	new_node->n = atoi(arg);
-	new_node->next = *stack;
-	*stack = new_node;
-}
-
-/**
- * isint - Check if a string is an integer.
- * @str: String to check.
+ * main - entry point
+ * @argc: argument count
+ * @argv: argument vector
  *
- * Return: 1 if the string is an integer, 0 otherwise.
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
  */
-int isint(char *str)
+int main(int argc, char *argv[])
 {
-	if (*str == '-')
-		str++;
+	FILE *file;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	unsigned int line_number = 0;
+	stack_t *stack = NULL;
 
-	while (*str)
+	if (argc != 2)
 	{
-		if (!isdigit(*str))
-			return (0);
-		str++;
+		fprintf(stderr, "USAGE: monty file\n");
+		return (EXIT_FAILURE);
 	}
 
-	   return (1);
+	file = fopen(argv[1], "r");
+	if (file == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		return (EXIT_FAILURE);
+	}
+
+	while ((read = getline(&line, &len, file)) != -1)
+	{
+		line_number++;
+		/* Tokenize the line and process the opcode */
+		/* Your code here */
+	}
+
+	free(line);
+	fclose(file);
+	return (EXIT_SUCCESS);
 }
