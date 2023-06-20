@@ -1,69 +1,50 @@
 #include "monty.h"
 
 /**
- * push - Pushes an element to the stack.
- * @stack: Double pointer to the top of the stack
- * @line_number: Line number in the file where the push opcode is encountered
+ * push - Pushes a value to the stack.
+ * @stack: Double pointer to the head of the stack.
+ * @line_number: Line number of the instruction in the file being processed.
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	/* Implementation of push opcode goes here */
+	char *arg = strtok(NULL, DELIMS);
+
+	if (!arg || !isint(arg))
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	stack_t *new_node = malloc(sizeof(stack_t));
+
+	if (!new_node)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	new_node->n = atoi(arg);
+	new_node->next = *stack;
+	*stack = new_node;
 }
 
 /**
- * pall - Prints all the values on the stack.
- * @stack: Pointer to the top of the stack
- * @line_number: Line number in the file where the pall opcode is encountered
+ * isint - Check if a string is an integer.
+ * @str: String to check.
+ *
+ * Return: 1 if the string is an integer, 0 otherwise.
  */
-void pall(stack_t **stack, unsigned int line_number)
+int isint(char *str)
 {
-	/* Implementation of pall opcode goes here */
-}
+	if (*str == '-')
+		str++;
 
-/**
- * main - Entry point for the Monty program.
- * @argc: Number of command-line arguments
- * @argv: Array of command-line arguments
- * Return: 0 on success, otherwise 1
- */
-int main(int argc, char *argv[])
-{
-	/* Check if the correct number of command-line arguments is provided */
-	if (argc != 2)
+	while (*str)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
+		if (!isdigit(*str))
+			return (0);
+		str++;
 	}
 
-	/* Read the Monty bytecode file */
-
-	FILE *file = fopen(argv[1], "r");
-
-	if (!file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return (EXIT_FAILURE);
-	}
-
-	/* Process each line of the file */
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	unsigned int line_number = 0;
-
-	while ((read = getline(&line, &len, file)) != -1)
-	{
-		line_number++;
-
-		/* Tokenize the line to get the opcode and arguments */
-		/* Call the appropriate function based on the opcode */
-		/* Handle any errors that occur during processing */
-	}
-
-	/* Clean up resources */
-	fclose(file);
-	if (line)
-		free(line);
-
-	return (EXIT_SUCCESS);
+	   return (1);
 }
