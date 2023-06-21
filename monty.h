@@ -10,6 +10,16 @@
 #define DELIMS " \n\t\r"
 
 /* Structures */
+/**
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer value of the node
+ * @next: pointer to the next node in the stack
+ *
+ * Description: doubly linked list node structure
+ * for Monty stack, where the 'n' variable
+ * represents the integer value of the node,
+ * and 'next' is a pointer to the next node.
+ */
 typedef struct stack_s
 {
 	int n;
