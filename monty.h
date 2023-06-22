@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define _GNU_SOURCE
 
 /* Libraries */
 #include <stdio.h>
@@ -32,9 +33,10 @@ typedef struct stack_s
  * Description: Represents an instruction in a program.
  * Members: opcode (char*), f (function pointer)
  */
-typedef struct instruction_s {
-    char *opcode;
-    void (*f)(stack_t **stack, unsigned int line_number);
+typedef struct instruction_s
+{
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* Function prototypes */

@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * main - Entry point
  * @argc: Number of command line arguments
@@ -9,25 +8,25 @@
  */
 int main(int argc, char **argv)
 {
+	FILE *file;
+	char *line = NULL;
+	size_t len = 0;
+	stack_t *stack = NULL;
+	unsigned int line_number = 0;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s filename\n", argv[0]);
 		return (EXIT_FAILURE);
 	}
 
-	FILE *file = fopen(argv[1], "r");
+	file = fopen(argv[1], "r");
 
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-
-	char *line = NULL;
-	size_t len = 0;
-
-	stack_t *stack = NULL;
-	unsigned int line_number = 0;
 
 	while (getline(&line, &len, file) != -1)
 	{
