@@ -18,15 +18,17 @@ instruction_t instruction[] = {
 	{"nop", nop},
 	{NULL, NULL}
 };
+
 /**
- * get_opcode_func - Selects the correct function to perform the operation
- *                   specified by opcode.
+ * get_op_func - Selects the correct function to perform the operation
+ *               specified by opcode.
  * @opcode: Operation code.
  * @stack: Double pointer to the head of the stack.
  * @line_number: Line number of the instruction in the file being processed.
+ *
+ * Return: Pointer to the function that corresponds to the opcode.
  */
-
-void (*get_op_func(char *op))(stack_t **stack, unsigned int ln)
+void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
 
