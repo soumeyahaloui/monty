@@ -24,6 +24,8 @@
 typedef struct stack_s
 {
 	int n;
+	int getline(char **lineptr, size_t *n, FILE *stream);
+	int isint(char *str);
 	struct stack_s *next;
 } stack_t;
 
@@ -35,7 +37,7 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
+	char *opcode = strtok(line, DELIMS);
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
