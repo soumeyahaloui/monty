@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	size_t len = 0;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
-	char *opcode = strtok(line, DELIMS);
+	char *opcode;
 
 	if (argc != 2)
 	{
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	while (getline(&line, &len, file) != -1)
 	{
 		line_number++;
-		char *opcode = strtok(line, DELIMS);
+		opcode = strtok(line, DELIMS);
 
 		if (opcode && opcode[0] != '#')
 		{
@@ -62,6 +62,10 @@ void free_stack(stack_t *head)
 	{
 		stack_t *temp = current;
 		current = current->next;
+
 		free(temp);
 	}
+
+	/* Add a blank line after the end of the function */
 }
+
