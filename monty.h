@@ -24,20 +24,20 @@
 typedef struct stack_s
 {
 	int n;
-	int getline(char **lineptr, size_t *n, FILE *stream);
-	int isint(char *str);
 	struct stack_s *next;
 } stack_t;
 
-/*
- * Struct: instruction_t
- * ---------------------
- * Description: Represents an instruction in a program.
- * Members: opcode (char*), f (function pointer)
+/**
+ * struct instruction_s - Represents an instruction in a program.
+ * @opcode: The operation code.
+ * @f: A function pointer that points to the function that performs the
+ *     corresponding operation.
+ *
+ * Description: This structure represents an instruction in a Monty program.
  */
 typedef struct instruction_s
 {
-	char *opcode = strtok(line, DELIMS);
+	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
@@ -53,3 +53,4 @@ void nop(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *head);
 
 #endif /* MONTY_H */
+
