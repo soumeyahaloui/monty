@@ -1,5 +1,42 @@
 #include "monty.h"
 
+/* Remove the redefinition of DELIMS since it's already defined in monty.h */
+
+int getline(char **lineptr, size_t *n, FILE *stream);
+int isint(char *str);
+
+/**
+ * main - Entry point of the program.
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+	stack_t *stack = NULL;
+	char *line = NULL;
+	size_t len = 0;
+	unsigned int line_number = 0;
+	ssize_t nread;
+
+	while ((nread = getline(&line, &len, stdin)) != -1)
+	{
+		line_number++;
+		char *opcode = strtok(line, DELIMS);
+
+		if (opcode != NULL)
+		{
+			if (strcmp(opcode, "push") == 0)
+			{
+				push(&stack, line_number);
+			}
+			/* Add other opcode handling here */
+		}
+	}
+
+	free(line);
+	return (0);
+}
+
 /**
  * push - Pushes a value to the stack.
  * @stack: Double pointer to the head of the stack.
@@ -42,9 +79,11 @@ int isint(char *str)
 	while (*str)
 	{
 		if (!isdigit(*str))
+		{
 			return (0);
+		}
 		str++;
 	}
 
-	   return (1);
+	return (1);
 }
