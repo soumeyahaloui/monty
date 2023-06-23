@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * main - Entry point
  * @argc: Number of command line arguments
@@ -44,4 +45,22 @@ int main(int argc, char **argv)
 	fclose(file);
 
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * free_stack - Frees a doubly linked list (a stack)
+ * @head: Pointer to the head of the stack
+ *
+ * Return: void
+ */
+void free_stack(stack_t *head)
+{
+	stack_t *current = head;
+
+	while (current)
+	{
+		stack_t *temp = current;
+		current = current->next;
+		free(temp);
+	}
 }
